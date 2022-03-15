@@ -21,6 +21,10 @@
 		<cfparam name="thisRoute.redirect" default="">
 		<cfparam name="thisRoute.view" default="">
 		<cfset thisRoute.id = hash( thisRoute.toString() )>
+		<cfset variables.theRunLink = thisRoute.pattern>
+		<cfif args.type eq "module">
+			<cfset variables.theRunLink = listAppend(thisRoute.module, thisRoute.pattern, "/", false)>
+		</cfif>
         <tr>
             <td>
                 #index++#
@@ -92,7 +96,7 @@
 			</td>
 			<td class="text-center">
 				<button class="btn btn-danger btn-sm" onclick="$( '##debug-#thisRoute.id#' ).toggle()">Dump</button>
-				<a href="#event.buildLink( thisRoute.pattern )#" target="_blank" class="btn btn-sm btn-primary">Run</a>
+				<a href="#event.buildLink( variables.theRunLink )#" target="_blank" class="btn btn-sm btn-primary">Run</a>
 			</td>
 		</tr>
 
